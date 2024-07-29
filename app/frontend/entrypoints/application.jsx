@@ -5,7 +5,7 @@ import { InertiaProgress } from '@inertiajs/progress';
 import axios from 'axios';
 import Layout from '../components/Layout';
 
-const pages = import.meta.glob('../pages/*.jsx')
+const pages = import.meta.glob('../pages/**/*.jsx')
 
 document.addEventListener('DOMContentLoaded', () => {
   const csrfToken = document.querySelector('meta[name=csrf-token]').content;
