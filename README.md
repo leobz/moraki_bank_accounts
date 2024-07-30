@@ -9,11 +9,42 @@ Setup:
 2. Install NodeJs: https://nodejs.org/en
 
 
-Run in Development mode:
+## Development
 
-```
+Setup development:
+
+```bash
 bundle install
 npm install
-bin/dev
+rails db:drop db:create: db:migrate db:seed
+```
+
+Run in Development mode:
+```bash
+
+
+# Execute application in development mode with a dockerized postgres database
+make dev
+```
+
+
+## Tests
+
+Setup tests:
+
+```bash
+bundle exec rake db:drop RAILS_ENV=test
+bundle exec rake db:create RAILS_ENV=test
+bundle exec rake db:schema:load RAILS_ENV=test
+```
+
+Run tests:
+
+```bash
+# Execute postgres DB to run automated tests
+make run-test-db
+
+# Execute automated tests. Require postgres (execute `make run-test-db` into another terminal)
+make test
 ```
 

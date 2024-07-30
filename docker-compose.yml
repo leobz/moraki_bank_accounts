@@ -5,8 +5,8 @@ services:
     image: postgres:16
     restart: always
     environment:
+      - POSTGRES_DB=moraki_development
       - POSTGRES_USER=moraki_app
       - POSTGRES_PASSWORD=moraki_app
-      - POSTGRES_DB=moraki_development
     ports:
-      - '5432:5432'
+      - '15432:5432'
