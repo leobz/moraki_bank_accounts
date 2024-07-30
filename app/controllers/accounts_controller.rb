@@ -10,6 +10,9 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1
   def show
+    render inertia: 'Accounts/Show', props: {
+      account: @account
+    }
   end
 
   # GET /accounts/new
