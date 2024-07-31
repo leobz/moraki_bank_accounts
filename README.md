@@ -11,33 +11,49 @@ Setup:
 
 ## Development
 
-Setup development:
+### Setup
+
+1. Install dependencies
 
 ```bash
 bundle install
 npm install
-
-docker compose up -d
-rails db:create: db:migrate db:seed
 ```
 
-Run in Development mode:
+2. Setup database
+
 ```bash
-# Execute application in development mode with a dockerized postgres database
+# Run postgres DB with development database
+make run-dev-db
+
+# Run migrations and seeds
+rails db:migrate
+rails db:seed
+```
+
+
+## Run
+
+Execute application in development mode with a dockerized postgres database
+
+```bash
 make dev
-
 ```
 
 
-## Tests
+## Run Tests
 
-Run tests:
+1. Execute postgres DB with test database
 
 ```bash
-# Execute postgres DB to run automated tests
 make run-test-db
+```
 
-# Execute automated tests. Require postgres (execute `make run-test-db` into another terminal)
+2. Open other terminal
+
+3. Execute automated tests
+```
+# Require postgres (execute `make run-test-db` into another terminal)
 make test
 ```
 
