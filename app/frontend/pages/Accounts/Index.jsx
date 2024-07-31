@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from '@inertiajs/react'
 
 const Index = ({accounts}) => {
     return (
@@ -6,14 +6,17 @@ const Index = ({accounts}) => {
             <h1>Accounts</h1>
             {accounts.map(account => (
                 <div key={account.id}>
-                    <p>Name: {account.name}</p>
                     <p>ID: {account.id}</p>
+                    <p>Name: {account.name}</p>
                     <p>Account Number: {account.account_number}</p>
                     <p>Currency: {account.currency}</p>
                     <p>Balance: {account.balance}</p>
-                    <p>Status: {account.account_status}</p>
+                    <p>Status: {account.status}</p>
+                    <a href={`/accounts/${account.id}`}>Go to account</a>
                 </div>
             ))}
+
+            <Link href="/accounts/new">Create account</Link>
         </div>
     );
 };

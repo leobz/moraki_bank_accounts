@@ -11,40 +11,49 @@ Setup:
 
 ## Development
 
-Setup development:
+### Setup
+
+1. Install dependencies
 
 ```bash
 bundle install
 npm install
-rails db:drop db:create: db:migrate db:seed
 ```
 
-Run in Development mode:
+2. Setup database
+
 ```bash
+# Run postgres DB with development database
+make run-dev-db
+
+# Run migrations and seeds
+rails db:migrate
+rails db:seed
+```
 
 
-# Execute application in development mode with a dockerized postgres database
+## Run
+
+Execute application in development mode with a dockerized postgres database
+
+```bash
 make dev
 ```
 
 
-## Tests
+## Run Tests
 
-Setup tests:
+1. Execute postgres DB with test database
 
 ```bash
-bundle exec rake db:drop RAILS_ENV=test
-bundle exec rake db:create RAILS_ENV=test
-bundle exec rake db:schema:load RAILS_ENV=test
+make run-test-db
 ```
 
-Run tests:
+2. Open other terminal
 
-```bash
-# Execute postgres DB to run automated tests
-make run-test-db
-
-# Execute automated tests. Require postgres (execute `make run-test-db` into another terminal)
+3. Execute automated tests
+```
+# Require postgres (execute `make run-test-db` into another terminal)
 make test
 ```
 

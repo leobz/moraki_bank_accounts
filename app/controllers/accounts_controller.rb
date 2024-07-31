@@ -1,5 +1,8 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[ show update destroy ]
+  before_action :set_account, only: %i[ show edit update destroy ]
+
+  # TODO: Refactor actions with 'use_inertia_instance_props' method
+  # More info: https://github.com/inertiajs/inertia-rails?tab=readme-ov-file#rails-component-and-instance-props
 
   # GET /accounts
   def index
@@ -18,33 +21,35 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    render inertia: 'Accounts/New', props: {
+      account: @account
+    }
   end
 
   # GET /accounts/1/edit
   def edit
+    render inertia: 'Accounts/Edit', props: {
+      account: @account
+    }
   end
 
   # POST /accounts
   def create
     @account = Account.new(account_params)
 
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to account_url(@account), notice: successful_message(:account, :created) }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    if @account.save
+      redirect_to account_url(@account), notice: "Account was successfully created."
+    else
+      redirect_to new_account_url, inertia: { errors: @account.errors }
     end
   end
 
   # PATCH/PUT /accounts/1
   def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to account_url(@account), notice: successful_message(:account, :updated) }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @account.update(account_params)
+      redirect_to account_url(@account), notice: "Account was successfully updated."
+    else
+      redirect_to edit_account_url, inertia: { errors: @account.errors }
     end
   end
 
@@ -52,9 +57,7 @@ class AccountsController < ApplicationController
   def destroy
     @account.destroy
 
-    respond_to do |format|
-      format.html { redirect_to accounts_url, notice: successful_message(:account, :deleted) }
-    end
+    redirect_to accounts_url, notice: "Account was successfully deleted."
   end
 
   private
@@ -65,6 +68,6 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:name)
+      params.require(:account).permit(:name, :balance, :currency, :status, :customer_id)
     end
 end
