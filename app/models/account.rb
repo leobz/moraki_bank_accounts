@@ -1,5 +1,5 @@
 class Account < ApplicationRecord
-  belongs_to :customer
+  belongs_to  :customer
 
   before_validation :set_default_customer
 
@@ -11,6 +11,6 @@ class Account < ApplicationRecord
 
   # Hardcoded customer for demo purposes
   def set_default_customer
-    self.customer = Customer.find(1) if self.customer.blank?
+    self.customer = Customer.find(1) if Rails.env.development?
   end
 end

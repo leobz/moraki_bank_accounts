@@ -38,6 +38,8 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
 
     if @account.save
+      Customer.update(default_account_id: @account.id) if is_default_account?
+
       redirect_to account_url(@account), notice: "Account was successfully created."
     else
       redirect_to new_account_url, inertia: { errors: @account.errors }
@@ -47,6 +49,8 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   def update
     if @account.update(account_params)
+      Customer.update(default_account_id: @account.id) if is_default_account?
+
       redirect_to account_url(@account), notice: "Account was successfully updated."
     else
       redirect_to edit_account_url, inertia: { errors: @account.errors }
@@ -69,5 +73,9 @@ class AccountsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def account_params
       params.require(:account).permit(:name, :balance, :currency, :status, :customer_id)
+    end
+
+    def is_default_account?
+      params["account"]["is_default"] == "true"
     end
 end
