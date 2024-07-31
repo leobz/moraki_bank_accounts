@@ -7,14 +7,16 @@ class AccountsController < ApplicationController
   # GET /accounts
   def index
     render inertia: 'Accounts/Index', props: {
-      accounts: Account.all
+      accounts: Account.all.map do |account|
+        serialize_account(account)
+      end
     }
   end
 
   # GET /accounts/1
   def show
     render inertia: 'Accounts/Show', props: {
-      account: @account
+      account: serialize_account(@account)
     }
   end
 
@@ -29,7 +31,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1/edit
   def edit
     render inertia: 'Accounts/Edit', props: {
-      account: @account
+      account: serialize_account(@account)
     }
   end
 
@@ -38,6 +40,8 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
 
     if @account.save
+      Customer.update(default_account_id: @account.id) if is_default_account?
+
       redirect_to account_url(@account), notice: "Account was successfully created."
     else
       redirect_to new_account_url, inertia: { errors: @account.errors }
@@ -47,6 +51,8 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   def update
     if @account.update(account_params)
+      Customer.update(default_account_id: @account.id) if is_default_account?
+
       redirect_to account_url(@account), notice: "Account was successfully updated."
     else
       redirect_to edit_account_url, inertia: { errors: @account.errors }
@@ -69,5 +75,14 @@ class AccountsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def account_params
       params.require(:account).permit(:name, :balance, :currency, :status, :customer_id)
+    end
+
+    def is_default_account?
+      params["account"]["is_default"].to_s == "true"
+    end
+
+    def serialize_account(account)
+      # TODO: Implement serializer (I.E. ActiveModel::Serializer, BluePrinter, etc)
+      account.as_json.merge(is_default: account.is_default?)
     end
 end

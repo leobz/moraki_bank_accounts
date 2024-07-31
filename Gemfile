@@ -27,6 +27,9 @@ gem "inertia_rails-contrib", "~> 0.1.1"
 # Manage Procfile-based applications
 gem "foreman"
 
+# Debugging tool for Ruby
+gem "pry"
+
 # Gems for Ruby 3.3.4 support
 # Related info: https://github.com/thinreports/thinreports-generator/issues/133
 gem "mutex_m"

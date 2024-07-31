@@ -11,7 +11,9 @@ return (
   <div>
     <h1>Account</h1>
     <div>
-        <p>ID: {account.id}</p>
+        <p>
+          ID: {account.id} { account.is_default ? <strong>(Default Account)</strong> : null }
+        </p>
         <p>Name: {account.name}</p>
         <p>Account Number: {account.account_number}</p>
         <p>Currency: {account.currency}</p>
