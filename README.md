@@ -16,27 +16,20 @@ Setup development:
 ```bash
 bundle install
 npm install
-rails db:drop db:create: db:migrate db:seed
+
+docker compose up -d
+rails db:create: db:migrate db:seed
 ```
 
 Run in Development mode:
 ```bash
-
-
 # Execute application in development mode with a dockerized postgres database
 make dev
+
 ```
 
 
 ## Tests
-
-Setup tests:
-
-```bash
-bundle exec rake db:drop RAILS_ENV=test
-bundle exec rake db:create RAILS_ENV=test
-bundle exec rake db:schema:load RAILS_ENV=test
-```
 
 Run tests:
 

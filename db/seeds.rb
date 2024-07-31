@@ -12,6 +12,6 @@ _ = Account.create(
   name: "Primary Account",
   balance: 1000,
   currency: "USD",
-  account_status: "active",
+  status: "active",
   account_number: SecureRandom.uuid,
 )

@@ -5,6 +5,8 @@ dev: ## Execute application in development mode
 
 .PHONY: test
 test: ## Execute automated tests. Require postgres (execute `make run-test-db` into another terminal)
+	RAILS_ENV=test bundle exec rake db:create
+	RAILS_ENV=test bundle exec rake db:schema:load
 	rspec spec
 
 .PHONY: run-test-db
