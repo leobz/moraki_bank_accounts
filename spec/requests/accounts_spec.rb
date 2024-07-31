@@ -16,8 +16,9 @@ RSpec.describe "Accounts", type: :request do
 
       # check inertia props
       account1, account2 = inertia.props[:accounts]
-      expect(account1.name).to eq("Account 1")
-      expect(account2.name).to eq("Account 2")
+
+      expect(account1[:name]).to eq("Account 1")
+      expect(account2[:name]).to eq("Account 2")
     end
   end
 
@@ -32,7 +33,13 @@ RSpec.describe "Accounts", type: :request do
       expect_inertia.to render_component 'Accounts/Show'
 
       # check inertia props
-      expect(inertia.props[:account]).to eq(account)
+      account.reload
+      expect(inertia.props[:account][:id]).to eq(account.id)
+      expect(inertia.props[:account][:customer_id]).to eq(account.customer_id)
+      expect(inertia.props[:account][:uuid]).to eq(account.uuid)
+      expect(inertia.props[:account][:name]).to eq(account.name)
+      expect(inertia.props[:account][:currency]).to eq(account.currency)
+      expect(inertia.props[:account][:status]).to eq(account.status)
     end
   end
 
@@ -47,7 +54,6 @@ RSpec.describe "Accounts", type: :request do
 
       # check the record
       expect(Account.last.name).to  eq("My new account")
-      
       expect(Account.last.id).to    eq(customer.reload.default_account_id)
 
       # check redirection

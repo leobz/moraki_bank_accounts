@@ -7,14 +7,16 @@ class AccountsController < ApplicationController
   # GET /accounts
   def index
     render inertia: 'Accounts/Index', props: {
-      accounts: Account.all
+      accounts: Account.all.map do |account|
+        serialize_account(account)
+      end
     }
   end
 
   # GET /accounts/1
   def show
     render inertia: 'Accounts/Show', props: {
-      account: @account
+      account: serialize_account(@account)
     }
   end
 
@@ -29,7 +31,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1/edit
   def edit
     render inertia: 'Accounts/Edit', props: {
-      account: @account
+      account: serialize_account(@account)
     }
   end
 
@@ -76,6 +78,11 @@ class AccountsController < ApplicationController
     end
 
     def is_default_account?
-      params["account"]["is_default"] == "true"
+      params["account"]["is_default"].to_s == "true"
+    end
+
+    def serialize_account(account)
+      # TODO: Implement serializer (I.E. ActiveModel::Serializer, BluePrinter, etc)
+      account.as_json.merge(is_default: account.is_default?)
     end
 end

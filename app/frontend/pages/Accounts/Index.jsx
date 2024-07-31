@@ -6,7 +6,9 @@ const Index = ({accounts}) => {
             <h1>Accounts</h1>
             {accounts.map(account => (
                 <div key={account.id}>
-                    <p>ID: {account.id}</p>
+                    <p>
+                        ID: {account.id} { account.is_default ? <strong>(Default Account)</strong> : null }
+                    </p>
                     <p>Name: {account.name}</p>
                     <p>Account Number: {account.account_number}</p>
                     <p>Currency: {account.currency}</p>

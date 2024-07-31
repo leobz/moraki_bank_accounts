@@ -7,10 +7,15 @@ class Account < ApplicationRecord
   validates :name, uniqueness: { scope: :customer_id }
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
+  def is_default?
+    self.customer.default_account_id == self.id
+  end
+
   private
 
   # Hardcoded customer for demo purposes
   def set_default_customer
     self.customer = Customer.find(1) if Rails.env.development?
   end
+
 end
