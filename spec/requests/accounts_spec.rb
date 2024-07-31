@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Accounts", type: :request do
-  let!(:customer) { create(:customer) }
-  let!(:a1)       { create(:account, customer: customer, name: "Account 1") }
-  let!(:a2)       { create(:account, customer: customer, name: "Account 2") }
-  
+  let!(:customer)         { create(:customer) }
+  let!(:a1)               { create(:account, customer: customer, name: "Account 1") }
+  let!(:a2)               { create(:account, customer: customer, name: "Account 2") }
+  let(:valid_attributes)  {{customer_id: customer.id, name: "My new account", balance: 0, currency: "USD", status: "active"}}
+
   describe "#index", inertia: true do
- 
     it "returns a list of accounts" do
       get accounts_url
       expect(response).to be_successful
@@ -35,8 +35,6 @@ RSpec.describe "Accounts", type: :request do
   end
 
   describe "#create" do
-    let(:valid_attributes) {{customer_id: customer.id, name: "My new account", balance: 0, currency: "USD", status: "active"}}
-
     it "creates a new account" do
       expect {
         post accounts_url, params: {account: valid_attributes}
@@ -48,47 +46,32 @@ RSpec.describe "Accounts", type: :request do
       # check redirection
       assert_redirected_to account_url(Account.last)
     end
+
+    it "fails with invalid params" do
+      # TODO: implement this
+     end
   end
 
-  #   it "fails with invalid params" do
-  #     #*******   Account name greater than 50 chars   *******#
-  #     invalid_long_name = 'a' * 51
+  describe "PUT #update" do
+    it "updates a Account" do
+      account = create(:account, name: "Old account")
+      put account_url(account), params: {account: valid_attributes}
 
-  #     expect {
-  #       post accounts_url, params: {account: {name: invalid_long_name}}
-  #     }.not_to change(Account, :count) # Ensure that the Account count doesn't change
+      # check the record
+      expect(Account.last.name).to eq("My new account")
 
-  #     expect(response).to have_http_status(:unprocessable_entity)
+      # check redirection
+      assert_redirected_to account_url(Account.last)
+    end
+  end
 
-  #     # Translation asserts
-  #     expect(response.body).to include("Cantidad máxima de caracteres: 50")
+  describe "DELETE #destroy" do
+    it "destroys a Account" do
+      account = create(:account)
+      expect { delete account_url(account) }.to change(Account, :count).by(-1)
 
-
-  #     #*******   Account name already exists   *******#
-  #     Account.create! valid_attributes
-
-  #     expect {
-  #       post accounts_url, params: {account: valid_attributes}
-  #     }.not_to change(Account, :count) # Ensure that the Account count doesn't change
-
-  #     expect(response).to have_http_status(:unprocessable_entity)
-  #   end
-  # end
-
-  # describe "PUT #update" do
-  #   it "updates a Account" do
-  #     account = Account.create! name: "Old account"
-  #     put account_url(account), params: {account: valid_attributes}
-
-  #     expect(Account.last).to eq(assigns(:account))
-  #     expect(Account.last.name).to eq("My account")
-  #   end
-  # end
-
-  # describe "DELETE #destroy" do
-  #   it "destroys a Account" do
-  #     account = Account.create! valid_attributes
-  #     expect { delete account_url(account) }.to change(Account, :count).by(-1)
-  #   end
-  # end
+      # check redirection
+      assert_redirected_to accounts_url
+    end
+  end
 end
