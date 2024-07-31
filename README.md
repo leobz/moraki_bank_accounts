@@ -1,7 +1,7 @@
 # Moraki Bank Accounts
 
 
-Ruby Version: 3.1.0
+Ruby Version: 3.3.4
 
 Setup:
 
