@@ -49,7 +49,7 @@ class AccountsController < ApplicationController
     if @account.update(account_params)
       redirect_to account_url(@account), notice: "Account was successfully updated."
     else
-      redirect_to edit_account_url inertia: { errors: @account.errors }
+      redirect_to edit_account_url, inertia: { errors: @account.errors }
     end
   end
 

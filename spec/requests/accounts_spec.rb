@@ -22,7 +22,7 @@ RSpec.describe "Accounts", type: :request do
   end
 
   describe "#show", inertia: true do
-    it "returns a account" do
+    it "returns an account" do
       get account_url(a1)
       expect(response).to be_successful
 
@@ -47,9 +47,34 @@ RSpec.describe "Accounts", type: :request do
       assert_redirected_to account_url(Account.last)
     end
 
-    it "fails with invalid params" do
-      # TODO: implement this
-     end
+    it "fails with invalid params", inertia: true do
+      #***************************  Name already exists   ***************************
+      invalid_params = valid_attributes.merge(name: a1.name)
+
+      expect {
+        post accounts_url, params: {account:  invalid_params}
+      }.not_to change(Account, :count)
+
+      # check inertia errors
+      assert_redirected_to new_account_url
+
+      follow_redirect!
+      expect(inertia.props[:errors]).to eq({name: ["has already been taken"]})
+
+
+      #***************************  Negative balance   ***************************
+      invalid_params = valid_attributes.merge(balance: -10)
+
+      expect {
+        post accounts_url, params: {account:  invalid_params}
+      }.not_to change(Account, :count)
+
+      # check inertia errors
+      assert_redirected_to new_account_url
+      follow_redirect!
+
+      expect(inertia.props[:errors]).to eq({balance: ["must be greater than or equal to 0"]})
+    end
   end
 
   describe "PUT #update" do
