@@ -1,26 +1,18 @@
 import AccountForm from '../components/AccountForm'
-import TitleWithLink from '../components/TitleWithLink'
+import HeadMenu from '../components/HeadMenu'
 
 export default function New({ account }) {
   return (
     <>
-      <TitleWithLink title="New Account" linkText="Back to accounts" linkUrl="/accounts" />
-      <AccountForm />
-
-      {/* <Form
+      <HeadMenu title="New Account" linkText="Back to accounts" linkUrl="/accounts" />
+      <AccountForm
         account={account}
+        submitText={"Create Account"}
         onSubmit={(form) => {
-          form.transform((data) => ({ account: data }))
-          form.post('/accounts')
+          form.transform((data)=> ({account: data}))
+          form.post(`/accounts`)
         }}
-        submitText="Create account"
-      />
-
-      <br/>
-
-      <div>
-        <Link href="/accounts">Back to accounts</Link>
-      </div> */}
+    />
     </>
   )
 }

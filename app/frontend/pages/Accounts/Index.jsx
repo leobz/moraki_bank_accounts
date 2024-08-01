@@ -1,5 +1,5 @@
 import IndexCards from '../components/IndexCards'
-import TitleWithLink from '../components/TitleWithLink'
+import HeadMenu from '../components/HeadMenu'
 
 const Index = ({accounts}) => {
   // TODO: Get path from inertia props
@@ -7,7 +7,7 @@ const Index = ({accounts}) => {
 
   return(
     <div>
-      <TitleWithLink title="All Accounts" linkText="Create new account" linkUrl={newAccountPath}/>
+      <HeadMenu title="All Accounts" linkText="Create new account" linkUrl={newAccountPath}/>
       <IndexCards accounts={accounts} />
     </div>
   )
