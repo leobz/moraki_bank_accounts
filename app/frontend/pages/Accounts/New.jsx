@@ -1,13 +1,13 @@
-import { Link, Head } from '@inertiajs/react'
-import Form from './Form'
+import AccountForm from '../components/AccountForm'
+import TitleWithLink from '../components/TitleWithLink'
 
 export default function New({ account }) {
   return (
     <>
-      <Head title="New account" />
-      <h1>New account</h1>
+      <TitleWithLink title="New Account" linkText="Back to accounts" linkUrl="/accounts" />
+      <AccountForm />
 
-      <Form
+      {/* <Form
         account={account}
         onSubmit={(form) => {
           form.transform((data) => ({ account: data }))
@@ -20,7 +20,7 @@ export default function New({ account }) {
 
       <div>
         <Link href="/accounts">Back to accounts</Link>
-      </div>
+      </div> */}
     </>
   )
 }
