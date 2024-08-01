@@ -1,6 +1,7 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createElement } from 'react'
 import { createRoot } from 'react-dom/client'
+import '../assets/stylesheets/main.css'
 
 createInertiaApp({
   // Set default page title
