@@ -7,8 +7,7 @@ class CreateAccounts < ActiveRecord::Migration[7.0]
 
       t.string  :name, null: false
       t.uuid    :account_number, :uuid, null: false, default: 'gen_random_uuid()'
-      t.string  :status, null: false, default: 'active'
-      t.string  :currency, null: false, default: 'USD'
+      t.integer  :status, null: false, default: 0
       t.decimal :balance, null: false, precision: 8, scale: 2, default: 0.0
 
       t.timestamps

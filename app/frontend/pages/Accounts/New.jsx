@@ -1,26 +1,19 @@
-import { Link, Head } from '@inertiajs/react'
-import Form from './Form'
+import AccountForm from '../components/AccountForm'
+import HeadMenu from '../components/HeadMenu'
 
-export default function New({ account }) {
+export default function New({ account, currencies}) {
   return (
     <>
-      <Head title="New account" />
-      <h1>New account</h1>
-
-      <Form
+      <HeadMenu title="New Account" linkText="Back to accounts" linkUrl="/accounts" />
+      <AccountForm
         account={account}
+        currencies={currencies}
+        submitText={"Create Account"}
         onSubmit={(form) => {
-          form.transform((data) => ({ account: data }))
-          form.post('/accounts')
+          form.transform((data)=> ({account: data}))
+          form.post(`/accounts`)
         }}
-        submitText="Create account"
-      />
-
-      <br/>
-
-      <div>
-        <Link href="/accounts">Back to accounts</Link>
-      </div>
+    />
     </>
   )
 }

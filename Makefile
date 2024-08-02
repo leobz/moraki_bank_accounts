@@ -1,12 +1,19 @@
+## docker compose backward compatibility
+## More info: https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command
+define DOCKER_COMPOSE
+	@if which docker-compose  >/dev/null ; then docker-compose  $1; \
+	else docker compose $1; fi;
+endef
+
 .PHONY: dev
 dev: ## Execute application in development mode
-	docker-compose -f docker-compose-test.yml up -d
+	$(call DOCKER_COMPOSE,  -f docker-compose-test.yml up -d)
 	bin/dev
 	make stop
 
 .PHONY: stop
 stop: ## Stop development's containers
-	docker-compose stop
+	$(call DOCKER_COMPOSE,  stop)
 
 .PHONY: test
 test: ## Execute automated tests. Require postgres (execute `make run-test-db` into another terminal)
@@ -16,8 +23,8 @@ test: ## Execute automated tests. Require postgres (execute `make run-test-db` i
 
 .PHONY: run-test-db
 run-test-db: ## Execute postgres DB to run automated tests
-	docker-compose -f docker-compose-test.yml up
+	$(call DOCKER_COMPOSE, -f docker-compose-test.yml up)
 
 .PHONY: run-dev-db
 run-dev-db: ## Execute postgres DB to run development mode
-	docker-compose -f docker-compose.yml up -d
+	$(call DOCKER_COMPOSE, -f docker-compose.yml up -d)

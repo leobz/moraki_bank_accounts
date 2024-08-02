@@ -24,14 +24,14 @@ class AccountsController < ApplicationController
   def new
     @account = Account.new
     render inertia: 'Accounts/New', props: {
-      account: @account
+      account: @account, currencies: Currency.all
     }
   end
 
   # GET /accounts/1/edit
   def edit
     render inertia: 'Accounts/Edit', props: {
-      account: serialize_account(@account)
+      account: serialize_account(@account), currencies: Currency.all
     }
   end
 
@@ -74,7 +74,7 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:name, :balance, :currency, :status, :customer_id)
+      params.require(:account).permit(:name, :balance, :currency_id, :status, :customer_id)
     end
 
     def is_default_account?
@@ -83,6 +83,6 @@ class AccountsController < ApplicationController
 
     def serialize_account(account)
       # TODO: Implement serializer (I.E. ActiveModel::Serializer, BluePrinter, etc)
-      account.as_json.merge(is_default: account.is_default?)
+      account.as_json(include: :currency).merge(is_default: account.is_default?)
     end
 end

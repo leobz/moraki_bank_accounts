@@ -3,10 +3,13 @@
 
 Ruby Version: 3.3.4
 
+NodeJs Version: 20.16.0
+
 Setup:
 
 1. Install Docker + Docker Compose: https://www.docker.com/
-2. Install NodeJs: https://nodejs.org/en
+2. Install Ruby: https://www.ruby-lang.org/en/
+3. Install NodeJs: https://nodejs.org/en
 
 
 ## Development
@@ -40,10 +43,12 @@ Execute application in development mode with a dockerized postgres database
 make dev
 ```
 
+Application runs in `http://localhost:3100/`
+
 
 ## Run Tests
 
-1. Execute postgres DB with test database
+1. Up postgres with test database
 
 ```bash
 make run-test-db

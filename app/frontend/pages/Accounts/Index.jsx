@@ -1,26 +1,13 @@
-import { Link } from '@inertiajs/react'
+import IndexCards from '../components/IndexCards'
+import HeadMenu from '../components/HeadMenu'
 
 const Index = ({accounts}) => {
-    return (
-        <div>
-            <h1>Accounts</h1>
-            {accounts.map(account => (
-                <div key={account.id}>
-                    <p>
-                        ID: {account.id} { account.is_default ? <strong>(Default Account)</strong> : null }
-                    </p>
-                    <p>Name: {account.name}</p>
-                    <p>Account Number: {account.account_number}</p>
-                    <p>Currency: {account.currency}</p>
-                    <p>Balance: {account.balance}</p>
-                    <p>Status: {account.status}</p>
-                    <a href={`/accounts/${account.id}`}>Go to account</a>
-                </div>
-            ))}
-
-            <Link href="/accounts/new">Create account</Link>
-        </div>
-    );
+  return(
+    <div>
+      <HeadMenu title="All Accounts" linkText="Create new account" linkUrl={"/accounts/new"}/>
+      <IndexCards accounts={accounts} />
+    </div>
+  )
 };
 
 export default Index;
