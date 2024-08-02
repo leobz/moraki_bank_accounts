@@ -8,6 +8,9 @@ class Account < ApplicationRecord
   validates :name, uniqueness: { scope: :customer_id }
   validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
+  # Add more statuses as needed
+  enum status: { active: 0 }, _default: :active
+
   def is_default?
     self.customer.default_account_id == self.id
   end

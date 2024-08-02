@@ -2,13 +2,13 @@ import React from 'react';
 import { useForm } from '@inertiajs/react';
 import { InputField, CheckboxField, SelectField } from './FormFields';
 
-const AccountForm = ({ account, onSubmit, submitText }) => {
+const AccountForm = ({ account, currencies, onSubmit, submitText }) => {
   const form = useForm({
     name: account.name || '',
     status: account.status || '',
-    currency: account.currency || '',
+    currency_id: account.currency && account.currency.id || '',
     is_default: account.is_default || '',
-    balance: account.balance || '', // Only for test purposes. This field shouldn't be editable
+    balance: account.balance || '', // TODO: Only for test purposes. This field shouldn't be editable in a real environment
   });
 
   const { data, setData, errors, processing } = form;
@@ -27,12 +27,12 @@ const AccountForm = ({ account, onSubmit, submitText }) => {
     <div className="max-w-md mx-auto p-4 bg-white shadow-lg rounded-lg">
       <form onSubmit={handleSubmit}>
         <SelectField
-          name="selectedOption"
-          label="Selector"
-          value={data.selectedOption}
-          onChange={handleChange('selectedOption')}
-          options={['option1', 'option2', 'option3']}
-          error={errors.selectedOption}
+          name="currency_id"
+          label="Currency"
+          value={data.currency_id}
+          onChange={handleChange('currency_id')}
+          options={currencies.map(currency => [currency.id, currency.code])}
+          error={errors.currency}
         />
         <InputField
           name="name"
@@ -41,19 +41,13 @@ const AccountForm = ({ account, onSubmit, submitText }) => {
           onChange={handleChange('name')}
           error={errors.name}
         />
-        <InputField
+        <SelectField
           name="status"
-          label="Account status"
+          label="Status"
           value={data.status}
           onChange={handleChange('status')}
+          options={[['active', 'Active']]}
           error={errors.status}
-        />
-        <InputField
-          name="currency"
-          label="Currency"
-          value={data.currency}
-          onChange={handleChange('currency')}
-          error={errors.currency}
         />
         <InputField
           name="balance"

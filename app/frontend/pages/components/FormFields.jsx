@@ -1,5 +1,5 @@
 /**
- * InputField component represents an input field with a label and optional error message.
+ * Input Field component with a label and inertia error message handler.
  *
  * @component
  * @param {Object} props - The component props.
@@ -30,7 +30,7 @@ const InputField = ({ name, label, value, onChange, error }) => {
 };
 
 /**
- * CheckboxField component.
+ * Checkbox Field omponent with a label and inertia error message handler.
  *
  * @component
  * @param {Object} props - The component props.
@@ -61,7 +61,7 @@ const CheckboxField = ({ name, label, checked, onChange, error }) => {
 };
 
 /**
- * SelectField component represents a select input field with options.
+ * Select Field component with a label and inertia error message handler.
  *
  * @component
  * @param {Object} props - The component props.
@@ -69,8 +69,7 @@ const CheckboxField = ({ name, label, checked, onChange, error }) => {
  * @param {string} props.label - The label for the select field.
  * @param {string} props.value - The current value of the select field.
  * @param {function} props.onChange - The function to handle the change event of the select field.
- * @param {Array} props.options - The array of options for the select field.
- * @param {Array} props.error - The array of error messages for the select field.
+ * @param {Array.<[number, string]>} props.options - The of options for the select field. Each option is represented as a tuple [value, display_value] * @param {Array} props.error - The array of error messages for the select field.
  * @returns {JSX.Element} The rendered SelectField component.
  */
 const SelectField = ({ name, label, value, onChange, options, error }) => {
@@ -86,9 +85,9 @@ const SelectField = ({ name, label, value, onChange, options, error }) => {
         onChange={onChange}
         className={inputStyleClasses}
       >
-        <option value="">Selecciona una opción</option>
+        <option value="">Select Option</option>
         {options.map(option => (
-          <option key={option} value={option}>{`Opción ${option.slice(-1)}`}</option>
+          <option key={option[0]} value={option[0]}>{option[1]}</option>
         ))}
       </select>
       {error && (<div style={{ color: 'red' }}>{error.join(', ')}</div>)}

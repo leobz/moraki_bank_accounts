@@ -1,5 +1,12 @@
 import AccountCard from './AccountCard'
 
+/**
+ * Renders a grid of account cards.
+ *
+ * @component
+ * @param {Object[]} accounts - The array of account objects.
+ * @returns {JSX.Element} The rendered component.
+ */
 const IndexCards = ({accounts}) => {
 
   return (

@@ -1,16 +1,14 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const tuxImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/265px-Tux.svg.png'
 const user = { imageUrl: tuxImageUrl }
 const navigation = [
   { name: 'Accounts', href: '/accounts', current: true },
-  { name: 'Transactions', href: '#', current: false },
+  { name: 'Withdrawals', href: '#', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Your Profie', href: 'https://hero.fandom.com/wiki/Tux_the_Penguin' },
 ]
 
 function classNames(...classes) {
@@ -52,15 +50,6 @@ export default function Layout({ children }) {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <button
-                    type="button"
-                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon aria-hidden="true" className="h-6 w-6" />
-                  </button>
-
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
@@ -78,6 +67,7 @@ export default function Layout({ children }) {
                         <MenuItem key={item.name}>
                           <a
                             href={item.href}
+                            target="_blank"
                             className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                           >
                             {item.name}
@@ -122,14 +112,6 @@ export default function Layout({ children }) {
                 <div className="flex-shrink-0">
                   <img alt="" src={user.imageUrl} className="h-10 w-10 rounded-full" />
                 </div>
-                <button
-                  type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon aria-hidden="true" className="h-6 w-6" />
-                </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (

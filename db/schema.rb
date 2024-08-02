@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_222512) do
     t.string "name", null: false
     t.uuid "account_number", default: -> { "gen_random_uuid()" }, null: false
     t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
-    t.string "status", default: "active", null: false
+    t.integer "status", default: 0, null: false
     t.decimal "balance", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
