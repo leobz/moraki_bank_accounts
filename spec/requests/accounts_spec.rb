@@ -34,18 +34,19 @@ RSpec.describe "Accounts", type: :request do
 
       # check inertia props
       account.reload
+
       expect(inertia.props[:account][:id]).to eq(account.id)
       expect(inertia.props[:account][:customer_id]).to eq(account.customer_id)
       expect(inertia.props[:account][:uuid]).to eq(account.uuid)
       expect(inertia.props[:account][:name]).to eq(account.name)
-      expect(inertia.props[:account][:currency]).to eq(account.currency)
+      expect(inertia.props[:account][:currency][:code]).to eq(account.currency.code)
       expect(inertia.props[:account][:status]).to eq(account.status)
     end
   end
 
   describe "#create" do
     let!(:account)            { create(:account, customer: customer) }
-    let!(:valid_attributes)   {{customer_id: customer.id, name: "My new account", balance: 0, currency: "USD", status: "active"}}
+    let!(:valid_attributes)   {{customer_id: customer.id, name: "My new account", balance: 0, currency_id: account.currency.id, status: "active"}}
 
     it "creates a new account" do
       expect {
@@ -92,7 +93,7 @@ RSpec.describe "Accounts", type: :request do
 
   describe "#update" do
     let!(:account)            { create(:account, customer: customer, name: "Old account") }
-    let!(:valid_attributes)   { {customer_id: customer.id, name: "My new account", balance: 0, currency: "USD", status: "active"} }
+    let!(:valid_attributes)   { {customer_id: customer.id, name: "My new account", balance: 0, currency_id: account.currency.id, status: "active"} }
 
     it "updates an Account" do
       expect {
