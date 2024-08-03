@@ -8,7 +8,7 @@ const navigation = [
   { name: 'Withdrawals', href: '#', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profie', href: 'https://hero.fandom.com/wiki/Tux_the_Penguin' },
+  { name: 'Your Profile', href: 'https://hero.fandom.com/wiki/Tux_the_Penguin' },
 ]
 
 function classNames(...classes) {
@@ -18,7 +18,7 @@ function classNames(...classes) {
 export default function Layout({ children }) {
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full bg-gray-100"> {/* Aquí agregué la clase bg-gray-100 para el fondo gris */}
         <Disclosure as="nav" className="bg-gray-800">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
@@ -135,7 +135,7 @@ export default function Layout({ children }) {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{ children }</div>
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{children}</div>
         </main>
       </div>
     </>

@@ -4,25 +4,30 @@
  * @component
  * @param {Object} props - The component props.
  * @param {string} props.name - The name of the input field.
- * @param {string} props.label - The label for the input field.
+ * @param {string} props.label - The label text for the input field.
  * @param {string} props.value - The current value of the input field.
  * @param {function} props.onChange - The event handler for input field changes.
  * @param {string[]} props.error - An array of error messages (if any).
+ * @param {boolean} props.isMoney - Indicates whether the input field is for money values.
  * @returns {JSX.Element} The rendered InputField component.
  */
-const InputField = ({ name, label, value, onChange, error }) => {
+const InputField = ({ name, label, value, onChange, error, isMoney }) => {
   const inputStyleClasses = "block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50";
-  
+
   return (
     <div className="mb-4">
       <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
       <input
-        type="text"
+        type={isMoney ? "number" : "text"}
         name={name}
         id={name}
         value={value}
         onChange={onChange}
         className={inputStyleClasses}
+        step={isMoney ? "0.01" : undefined}
+        min={isMoney ? "0" : undefined}
+        max={isMoney ? "1000000000" : undefined}
+        inputMode={isMoney ? "decimal" : "text"}
       />
       {error && (<div style={{ color: 'red' }}>{error.join(', ')}</div>)}
     </div>

@@ -2,8 +2,8 @@ class Account < ApplicationRecord
   belongs_to  :customer
   belongs_to  :currency
 
-  attribute :account_number, :string, default: -> { SecureRandom.uuid }
-  attribute :balance, :decimal, default: -> { 0.0 }
+  attribute :account_number, :uuid, default: -> { SecureRandom.uuid }
+  attribute :balance, :decimal, scale: 2, default: -> { 0.0 }
   enum status: { active: 0 }, _default: :active
 
   #****************************   Encryption   *******************************
@@ -18,7 +18,7 @@ class Account < ApplicationRecord
   validates :name, :status, :currency, :balance, :account_number, presence: true
   validates :name, uniqueness: { scope: :customer_id }
   validates :account_number, uniqueness: true
-  validates :balance, numericality: { greater_than_or_equal_to: 0 }
+  validates :balance, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1000000000 }
 
 
   def is_default?

@@ -2,6 +2,17 @@ import React from 'react';
 import { useForm } from '@inertiajs/react';
 import { InputField, CheckboxField, SelectField } from './FormFields';
 
+/**
+ * AccountForm component.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.account - The account object.
+ * @param {Array} props.currencies - The array of currencies.
+ * @param {Function} props.onSubmit - The submit handler function.
+ * @param {string} props.submitText - The text for the submit button.
+ * @returns {JSX.Element} The rendered AccountForm component.
+ */
 const AccountForm = ({ account, currencies, onSubmit, submitText }) => {
   const form = useForm({
     name: account.name || '',
@@ -52,6 +63,7 @@ const AccountForm = ({ account, currencies, onSubmit, submitText }) => {
         <InputField
           name="balance"
           label="Balance"
+          isMoney={true}
           value={data.balance}
           onChange={handleChange('balance')}
           error={errors.balance}

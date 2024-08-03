@@ -34,7 +34,6 @@ RSpec.describe "Accounts", type: :request do
 
       # check inertia props
       account.reload
-
       expect(inertia.props[:account][:id]).to eq(account.id)
       expect(inertia.props[:account][:customer_id]).to eq(account.customer_id)
       expect(inertia.props[:account][:account_number]).to eq(account.account_number)
