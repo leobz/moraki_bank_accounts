@@ -11,15 +11,22 @@ dev: ## Execute application in development mode
 	bin/dev
 	make stop
 
-.PHONY: stop
-stop: ## Stop development's containers
-	$(call DOCKER_COMPOSE,  stop)
+.PHONY: dc-down
+dc-down: ## Stops containers and removes containers, networks, volumes, and images of this project
+	$(call DOCKER_COMPOSE, -f docker-compose-test.yml down)
+	$(call DOCKER_COMPOSE, down)
 
 .PHONY: test
 test: ## Execute automated tests. Require postgres (execute `make run-test-db` into another terminal)
 	RAILS_ENV=test bundle exec rake db:create
 	RAILS_ENV=test bundle exec rake db:schema:load
 	rspec spec
+
+.PHONY: setup-db
+setup-db: ## Setup database for development mode
+	$(call DOCKER_COMPOSE, -f docker-compose.yml up -d)
+	rails db:migrate
+	rails db:seed
 
 .PHONY: run-test-db
 run-test-db: ## Execute postgres DB to run automated tests

@@ -5,10 +5,10 @@ class CreateAccounts < ActiveRecord::Migration[7.0]
     create_table :accounts do |t|
       t.belongs_to :customer, foreign_key: true
 
-      t.string  :name, null: false
-      t.uuid    :account_number, :uuid, null: false, default: 'gen_random_uuid()'
-      t.integer  :status, null: false, default: 0
-      t.decimal :balance, null: false, precision: 8, scale: 2, default: 0.0
+      t.string    :name, null: false
+      t.string    :account_number, null: false, index: { unique: true }
+      t.string    :balance, null: false
+      t.integer   :status, null: false, default: 0
 
       t.timestamps
     end

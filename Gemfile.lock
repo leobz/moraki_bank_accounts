@@ -77,6 +77,7 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    dotenv (3.1.2)
     drb (2.2.1)
     dry-cli (1.1.0)
     erubi (1.13.0)
@@ -234,6 +235,7 @@ DEPENDENCIES
   base64
   bigdecimal
   debug
+  dotenv
   drb
   factory_bot_rails
   foreman
@@ -242,7 +244,7 @@ DEPENDENCIES
   pg
   pry
   puma (~> 5.0)
-  rails (~> 7.0.2, >= 7.0.2.3)
+  rails (~> 7.0.8.4, >= 7.0.3.2)
   rspec-rails
   sprockets-rails
   tzinfo-data
