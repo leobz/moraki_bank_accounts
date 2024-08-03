@@ -23,18 +23,7 @@ bundle install
 npm install
 ```
 
-2. Setup database
-
-```bash
-# Run postgres DB with development database
-make run-dev-db
-
-# Run migrations and seeds
-rails db:migrate
-rails db:seed
-```
-
-3. Setup ActiveRecord Encryption to protect sensitive data:
+2. Setup ActiveRecord Encryption to protect sensitive data:
 
 Generate and copy the encryption credentials
 ```bash
@@ -44,6 +33,16 @@ rails db:encryption:init
 Open the credentials file, and add the encryption creadentials
 ```bash
 rails credentials:edit
+```
+
+3. Setup database
+
+```bash
+# Clean old containers
+make dc-down
+
+# Run create database, run migrations and seeds
+make setup-db
 ```
 
 ## Run

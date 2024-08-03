@@ -38,11 +38,5 @@ module MorakiBankAccounts
     config.active_record.encryption.primary_key = ENV['ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY']
     config.active_record.encryption.deterministic_key = ENV['ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY']
     config.active_record.encryption.key_derivation_salt = ENV['ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT']
-    config.active_record.encryption.support_unencrypted_data = true
-
-    # Load the YAML column configuration to allow the type cast in encrypted columns
-    # This configuration is disabled by default, to backguard compatibility with Rails versions lower than 7.0.3.2 (Not our case)
-    # Related info: https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017
-    config.active_record.yaml_column_permitted_classes = [BigDecimal]
   end
 end

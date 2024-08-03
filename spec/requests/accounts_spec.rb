@@ -37,7 +37,7 @@ RSpec.describe "Accounts", type: :request do
 
       expect(inertia.props[:account][:id]).to eq(account.id)
       expect(inertia.props[:account][:customer_id]).to eq(account.customer_id)
-      expect(inertia.props[:account][:uuid]).to eq(account.uuid)
+      expect(inertia.props[:account][:account_number]).to eq(account.account_number)
       expect(inertia.props[:account][:name]).to eq(account.name)
       expect(inertia.props[:account][:currency][:code]).to eq(account.currency.code)
       expect(inertia.props[:account][:status]).to eq(account.status)
@@ -46,7 +46,7 @@ RSpec.describe "Accounts", type: :request do
 
   describe "#create" do
     let!(:account)            { create(:account, customer: customer) }
-    let!(:valid_attributes)   {{customer_id: customer.id, name: "My new account", balance: 0, currency_id: account.currency.id, status: "active"}}
+    let!(:valid_attributes)   {{customer_id: customer.id, name: "My new account", balance: 100.12, currency_id: account.currency.id, status: "active"}}
 
     it "creates a new account" do
       expect {
@@ -54,8 +54,10 @@ RSpec.describe "Accounts", type: :request do
       }.to change(Account, :count).by(1)
 
       # check the record
-      expect(Account.last.name).to  eq("My new account")
-      expect(Account.last.id).to    eq(customer.reload.default_account_id)
+      created_account = Account.last
+      expect(created_account.name).to     eq("My new account")
+      expect(created_account.id).to       eq(customer.reload.default_account_id)
+      expect(created_account.balance).to  eq(100.12)
 
       # check redirection
       assert_redirected_to account_url(Account.last)

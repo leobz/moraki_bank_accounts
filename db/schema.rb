@@ -18,13 +18,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_01_222512) do
   create_table "accounts", force: :cascade do |t|
     t.bigint "customer_id"
     t.string "name", null: false
-    t.uuid "account_number", default: -> { "gen_random_uuid()" }, null: false
-    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
+    t.string "account_number", null: false
+    t.string "balance", null: false
     t.integer "status", default: 0, null: false
-    t.decimal "balance", precision: 8, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "currency_id", null: false
+    t.index ["account_number"], name: "index_accounts_on_account_number", unique: true
     t.index ["currency_id"], name: "index_accounts_on_currency_id"
     t.index ["customer_id"], name: "index_accounts_on_customer_id"
   end
