@@ -34,6 +34,17 @@ rails db:migrate
 rails db:seed
 ```
 
+3. Setup ActiveRecord Encryption to protect sensitive data:
+
+Generate and copy the encryption credentials
+```bash
+rails db:encryption:init
+```
+
+Open the credentials file, and add the encryption creadentials
+```bash
+rails credentials:edit
+```
 
 ## Run
 
